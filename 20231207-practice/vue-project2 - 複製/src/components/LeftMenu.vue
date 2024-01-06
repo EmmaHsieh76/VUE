@@ -1,13 +1,12 @@
 <template lang="pug">
-#left
-  table 
-    template(v-for="(link,i) in links" :key="i")
-      tr 
-        td
-          RouterLink(:to="link.to")
-            img(:src="link.img")
-      tr  
-        td &nbsp;      
+table 
+  template(v-for="(link,i) in links" :key="i")
+    tr 
+      td
+        RouterLink(:to="link.to")
+          img(:src="link.img")
+    tr  
+      td &nbsp;      
 </template>
 
 <script setup>

@@ -29,5 +29,17 @@
     '@vue/standard',
   ],
 
+# 安裝套件 npm i -D @vue/language-plugin-pug
+用途:在vue的語法使用時有顏色顯示
+安裝 npm i -D @vue/language-plugin-pug 後 
+1. 在 vue-project 資料夾內新增檔案 jsconfig.json 
+2. 在 jsconfig.json 檔案內貼上以下程式碼
+{
+"vueCompilerOptions": {
+"plugins": [
+"@vue/language-plugin-pug"
+]
+}
+}
 
 
