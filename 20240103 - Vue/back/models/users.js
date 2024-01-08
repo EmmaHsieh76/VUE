@@ -19,8 +19,7 @@ const cartSchema = new Schema({
 })
 
 // 帳號 信箱 密碼 購物車
-const schema = new Schema(
-  {
+const schema = new Schema({
     // 帳號
     account: {
       type: String,

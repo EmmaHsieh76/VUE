@@ -33,7 +33,7 @@ export const create = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '7 days' })
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '1 s' })
     req.user.tokens.push(token)
     await req.user.save()
     res.status(StatusCodes.OK).json({
@@ -107,10 +107,7 @@ export const getProfile = (req, res) => {
         account: req.user.account,
         email: req.user.email,
         role: req.user.role,
-        // 計算購物車總數
-        cart: req.user.cart.reduce((total, current) => {
-          return total + current.quantity
-        }, 0)
+        cart: req.user.cartQuantity
       }
     })
   } catch (error) {
@@ -120,4 +117,3 @@ export const getProfile = (req, res) => {
     })
   }
 }
-

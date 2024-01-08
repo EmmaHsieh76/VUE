@@ -44,7 +44,7 @@ passport.use(
 )
 
 // passport使用jwy的驗證策略
-passport.use('jwt', new passportJWT.Strategy({
+passport.use('jwt',new passportJWT.Strategy({
   jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET,
   // 才能取得請求的資訊
@@ -77,11 +77,13 @@ if (!user) {
 
 return done(null, { user, token }, null)
   }catch(error){
-if (error.message === 'EXPIRED' || error.message === 'JWT') {
-  return done(null, null, { message: 'JWT 無效' })
-} else {
-  return done(null, null, { message: '未知錯誤' })
-}
+    if (error.message === 'EXPIRED') {
+      return done(null, null, { message: 'JWT 過期' })
+    } else if (error.message === 'JWT') {
+      return done(null, null, { message: 'JWT 無效' })
+    } else {
+      return done(null, null, { message: '未知錯誤' })
+    }
 }
 
 }))

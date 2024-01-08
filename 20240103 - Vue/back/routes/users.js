@@ -7,7 +7,6 @@ const router = Router()
 router.post('/', create)
 // 登入
 router.post('/login', auth.login, login)
-
 router.delete('/logout', auth.jwt, logout)
 // 舊換新token
 router.patch('/extend', auth.jwt, extend)

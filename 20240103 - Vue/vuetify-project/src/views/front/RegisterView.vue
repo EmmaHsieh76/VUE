@@ -38,10 +38,12 @@ import validator from 'validator'
 // vue的表單驗證
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-import { api } from '@/plugins/axios'
 // useRoute=>目前這頁，useRouter是跳頁處理
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
+import { useApi } from '@/composables/axios'
+
+const { api } = useApi()
 
 const router = useRouter()
 const createSnackbar = useSnackbar()

@@ -81,3 +81,9 @@ npm i axios
 npm i vuetify-use-dialog  =>可以跳出小提示的套件
 
 
+## 安裝 
+用途=> 保存 pinia 狀態的套件
+npm i pinia-plugin-persistedstate
+
+用途 => 直接在網頁下方看pinia
+npm add -D vite-plugin-vue-devtools

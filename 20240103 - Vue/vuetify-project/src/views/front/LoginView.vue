@@ -26,13 +26,18 @@ VContainer
 // vue的表單驗證
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-import { api } from '@/plugins/axios'
 // useRoute=>目前這頁，useRouter是跳頁處理
 import { useRouter } from 'vue-router'
 import { useSnackbar } from 'vuetify-use-dialog'
+import { useApi } from '@/composables/axios'
+import { useUserStore } from '@/store/user'
+
+const { api } = useApi()
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+
+const user = useUserStore()
 
 // 定義註冊表單的資料格式
 const schema = yup.object({
@@ -59,10 +64,11 @@ const password = useField('password')
 
 const submit = handleSubmit(async (values) => {
   try {
-    await api.post('/users/login', {
+    const { data } = await api.post('/users/login', {
       account: values.account,
       password: values.password
     })
+    user.login(data.result)
     createSnackbar({
       text: '登入成功',
       showCloseButton: false,
