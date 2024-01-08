@@ -1,5 +1,6 @@
 import passport from 'passport'
 import { StatusCodes } from 'http-status-codes'
+import jsonwebtoken from 'jsonwebtoken'
 
 export const login = (req, res, next) => {
   passport.authenticate('login', { session: false }, (error, user, info) => {
@@ -32,3 +33,37 @@ export const login = (req, res, next) => {
     next()
   })(req, res, next)
 }
+
+// 登錄完passport的驗證方式後會來執行這邊
+// jwt無效才會過來這裡
+export const jwt = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (error, data, info) => {
+    if (error || !data) {
+      // jwt 格式不對、 SECRET不對
+      if (info instanceof jsonwebtoken.JsonWebTokenError) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+          success: false,
+          message: 'JWT 無效'
+        })
+        
+      } else if (info.message === '未知錯誤') {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: '未知錯誤'
+        })
+      } else {
+        // 其他錯誤
+        res.status(StatusCodes.UNAUTHORIZED).json({
+          success: false,
+          message: info.message
+        })
+      }
+      return
+    }
+    req.user = data.user
+    req.token = data.token
+    next()
+  })(req, res, next)
+}
+
+

@@ -78,8 +78,16 @@ const schema = new Schema(
     timestamps: true,
     // 把建立的資料__v:更新次數關掉
     versionKey: false
-  }
-)
+  })
+
+  // 建立一個空的使用者?
+schema.virtual('cartQuantity')
+.get(function () {
+return this.cart.reduce((total, current) => {
+return total + current.quantity
+}, 0)
+})
+
 
 schema.pre('save', function (next) {
   // 準備要保存進去的資料

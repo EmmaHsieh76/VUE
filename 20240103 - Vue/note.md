@@ -79,3 +79,5 @@ npm i yup vee-validate validator
 
 npm i axios 
 npm i vuetify-use-dialog  =>可以跳出小提示的套件
+
+
